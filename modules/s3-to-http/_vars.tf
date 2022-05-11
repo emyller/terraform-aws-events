@@ -9,5 +9,6 @@ variable "url" {
 }
 
 variable "s3_paths" {
+  description = "A map of S3 paths to listen to, labelled after their context."
   type = map(string)
 }
