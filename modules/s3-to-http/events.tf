@@ -49,7 +49,7 @@ module "events" {
 
   rules = {
     for label, rule in local.rules:
-    (label) => {
+    (rule.name) => {
       event_pattern = replace(replace(jsonencode({
         "source": ["aws.s3"],
         "detail-type": ["Object Created"],
@@ -66,9 +66,9 @@ module "events" {
 
   targets = {
     for label, rule in local.rules:
-    (label) => [
+    (rule.name) => [
       {
-        name = "s3-upload-http-post"
+        name = rule.name
         destination = local.api_name
         attach_role_arn = true
         input_transformer = {
